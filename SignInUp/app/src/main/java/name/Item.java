@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,9 +20,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.prathamesh.signinup.MainActivity;
 import com.example.prathamesh.signinup.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.realm.Realm;
@@ -45,7 +46,7 @@ public class Item extends AppCompatActivity {
         AutoCompleteTextView input8 = (AutoCompleteTextView) findViewById(R.id.unit);
         Button button = (Button) findViewById(R.id.save);
         Button button1 = (Button) findViewById(R.id.cancel);
-
+        final String[] data = new String[1];
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_sale_1);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Add Product");
@@ -65,7 +66,7 @@ public class Item extends AppCompatActivity {
             }
         });
 
-        final String[] Customers_1 = new String[]{"Exempted", "GST@0%", "IGST@0%", "GST@0.25%", "IGST@0.25%", "GST@3%", "IGST@3%"};
+        final String[] Customers_1 = new String[]{"0%","0.25%", "3%", "5%"};
         ArrayAdapter<String> adapter_1 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Customers_1);
         input7.setAdapter(adapter_1);
 
@@ -77,77 +78,104 @@ public class Item extends AppCompatActivity {
             }
         });
 
-        final String[] Customers_2 = new String[]{"Add a new unit", "BAGS", "KILOS"};
-        ArrayAdapter<String> adapter_2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, Customers_2);
-        input8.setAdapter(adapter_2);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("ProductList")
+                .schemaVersion(0)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm realm_1 = Realm.getInstance(config);
+        realm_1.executeTransaction(new Realm.Transaction() {
+                                     @Override
+                                     public void execute(Realm realm) {
 
-        input8.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                input8.showDropDown();
-                return false;
-            }
-        });
-
-        // Dialog to add a new unit
-
-        input8.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String buffer_position = (String) parent.getItemAtPosition(position);
-                int real_position = Arrays.asList(Customers_2).indexOf(buffer_position);
-                switch (real_position) {
-
-                    case 0: {
-
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(Item.this);
-                        final LayoutInflater inflater = Item.this.getLayoutInflater();
-
-                        ViewGroup nullParent = null;
-
-                        builder.setTitle("Add a new unit");
-                        View custom_dialog = inflater.inflate(R.layout.newunit, nullParent);
-
-                        EditText name = (EditText) custom_dialog.findViewById(R.id.name);
-
-                        builder.setPositiveButton(R.string.username, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-
-                                //Nothing for yet since this part is not working.
-                            }
-
-                        })
-                                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // Send the negative button event back to the host activity
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                        builder.setView(custom_dialog);
-                        AlertDialog doneBuild = builder.create();
-                        doneBuild.show();
-                        doneBuild.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                // write check code
-                                if (TextUtils.isEmpty(name.getText().toString())) {
-                                    Toast.makeText(Item.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                doneBuild.dismiss();
+                                         ArrayList<Unit> list = new ArrayList<Unit>(realm.where(Unit.class).findAll());
+                                         ArrayList<String> array = new ArrayList<>(list.size() + 1);
+                                         array.add(0, "Add a new Unit");
+                                         for (int i = 1; i <= list.size(); i++) {
+                                             array.add(i, list.get(i - 1).getUnit());
+                                         }
 
 
-                            }
-                        });
+                                         final String[] Customers_2 = array.toArray(new String[array.size()]);
+                                         ArrayAdapter<String> adapter_2 = new ArrayAdapter<String>(Item.this, android.R.layout.simple_spinner_dropdown_item, Customers_2);
+                                         input8.setAdapter(adapter_2);
 
-                    }
-                }
-            }
-        });
+                                         input8.setOnTouchListener(new View.OnTouchListener() {
+                                             @Override
+                                             public boolean onTouch(View v, MotionEvent event) {
+                                                 input8.showDropDown();
+                                                 return false;
+                                             }
+                                         });
+
+                                         // Dialog to add a new unit
+
+                                         input8.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                             @Override
+                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                                 String buffer_position = (String) parent.getItemAtPosition(position);
+                                                 int real_position = Arrays.asList(Customers_2).indexOf(buffer_position);
+                                                 switch (real_position) {
+
+                                                     case 0: {
+
+                                                         final AlertDialog.Builder builder = new AlertDialog.Builder(Item.this);
+                                                         final LayoutInflater inflater = Item.this.getLayoutInflater();
+
+                                                         ViewGroup nullParent = null;
+
+                                                         builder.setTitle("Add a new unit");
+                                                         View custom_dialog = inflater.inflate(R.layout.newunit, nullParent);
+
+                                                         EditText name = (EditText) custom_dialog.findViewById(R.id.name);
+
+                                                         builder.setPositiveButton(R.string.username, new DialogInterface.OnClickListener() {
+                                                             @Override
+                                                             public void onClick(DialogInterface dialog, int id) {
+
+                                                                 //Nothing for yet since this part is not working.
+                                                             }
+
+                                                         })
+                                                                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                                                                     public void onClick(DialogInterface dialog, int id) {
+                                                                         // Send the negative button event back to the host activity
+                                                                         dialog.dismiss();
+                                                                     }
+                                                                 });
+
+                                                         builder.setView(custom_dialog);
+                                                         AlertDialog doneBuild = builder.create();
+                                                         doneBuild.show();
+                                                         doneBuild.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                                                             @Override
+                                                             public void onClick(View v) {
+                                                                 // write check code
+                                                                 if (TextUtils.isEmpty(name.getText().toString())) {
+                                                                     Toast.makeText(Item.this, "Name should not be empty", Toast.LENGTH_SHORT).show();
+                                                                     return;
+                                                                 }
+
+                                                                 realm_1.beginTransaction();
+                                                                 Unit unit = realm_1.createObject(Unit.class);
+                                                                 data[0] = name.getText().toString();
+                                                                 unit.setUnit(data[0]);
+                                                                 realm_1.commitTransaction();
+                                                                 doneBuild.dismiss();
+                                                                 input8.setText(data[0]);
+
+                                                             }
+                                                         });
+
+
+                                                     }
+                                                 }
+                                             }
+                                         });
+                                     }
+                                 });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,17 +211,20 @@ public class Item extends AppCompatActivity {
                 if (TextUtils.isEmpty(input8.getText().toString())) {
                     Toast.makeText(Item.this, "Item unit should not be empty", Toast.LENGTH_SHORT).show();
                     return;
-                } else {
+                }
+                else {
+
                     RealmConfiguration config = new RealmConfiguration.Builder()
-                            .name("Product")
-                            .schemaVersion(1)
+                            .name("ProductList")
+                            .schemaVersion(0)
                             .deleteRealmIfMigrationNeeded()
                             .build();
-                    Realm realm = Realm.getInstance(config);
-                    realm.beginTransaction();
-                    ItemList itemList = realm.createObject(ItemList.class);
+                    Realm realm_2 = Realm.getInstance(config);
+                    realm_2.beginTransaction();
+                    ProductList itemList = realm_2.createObject(ProductList.class);
 
-                    itemList.setName(input1.getText().toString());
+                    String name = input1.getText().toString();
+                    itemList.setName(name);
                     itemList.setRate(input7.getText().toString());
                     itemList.setType(input6.getText().toString());
                     itemList.setUnit(input8.getText().toString());
@@ -202,8 +233,9 @@ public class Item extends AppCompatActivity {
                     itemList.setSale(Integer.parseInt(input4.getText().toString()));
                     itemList.setPurchase(Integer.parseInt(input5.getText().toString()));
 
-                    realm.commitTransaction();
-                    Intent intent = new Intent(Item.this, MainActivity.class);
+                    Toast.makeText(Item.this, "Submitted", Toast.LENGTH_SHORT).show();
+                    realm_2.commitTransaction();
+                    Intent intent = new Intent(Item.this, com.example.prathamesh.signinup.ItemList.class);
                     startActivity(intent);
 
                 }

@@ -47,6 +47,7 @@
         <activity android:name=".Bill" />
         <activity android:name="name.Item" />
         <activity android:name=".ItemList" />
+        <activity android:name="name.AddLineItem" />
 
     </application>
 

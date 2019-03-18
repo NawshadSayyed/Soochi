@@ -60,7 +60,7 @@ public class AllParties extends AppCompatActivity {
                 .build();
         Realm realm = Realm.getInstance(config2);
 
-        Log.i(TAG, realm.getPath());
+
 
         // Run this on the device to find the path on the emulator
 
@@ -96,7 +96,7 @@ public class AllParties extends AppCompatActivity {
                LinearLayoutManager layoutManager = new LinearLayoutManager(AllParties.this);
                username.setLayoutManager(layoutManager);
 
-               MyAdapter  mAdapter = new MyAdapter(list);
+               Myadapter  mAdapter = new Myadapter(list);
 
              username.setAdapter(mAdapter);
 

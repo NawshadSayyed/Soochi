@@ -2,7 +2,7 @@ package name;
 
 import io.realm.RealmObject;
 
-public class ItemList extends RealmObject {
+public class ProductList extends RealmObject {
 
    private  String name, type, rate, unit;
    private  int barcode, hsn, sale, purchase;
@@ -16,7 +16,7 @@ public class ItemList extends RealmObject {
    public int getPurchase(){return purchase;}
    public String getUnit(){return unit;}
 
-   public void setName(String name)
+    public void setName(String name)
    {
        this.name = name;
    }

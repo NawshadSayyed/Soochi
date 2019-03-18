@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import name.Cardname;
 import name.User;
 
-  class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+   public class Myadapter extends RecyclerView.Adapter<Myadapter.MyViewHolder> {
     private ArrayList<User> list;
 
     // Provide a reference to the views for each data item
@@ -32,13 +32,13 @@ import name.User;
         }
     }
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(ArrayList<User> list) {
+    public Myadapter(ArrayList<User> list) {
        this.list = list;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public Myadapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())

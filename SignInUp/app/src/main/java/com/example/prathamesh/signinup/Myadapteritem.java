@@ -1,7 +1,7 @@
 package com.example.prathamesh.signinup;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +9,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import name.Cardname;
-import name.User;
+import name.ProductList;
 
-class MyAdapteritem extends RecyclerView.Adapter<MyAdapteritem.MyViewHolder> {
-    private ArrayList<name.ItemList> list;
+class Myadapteritem extends RecyclerView.Adapter<Myadapteritem.MyViewHolder> {
+    private ArrayList<ProductList> list;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -33,13 +32,13 @@ class MyAdapteritem extends RecyclerView.Adapter<MyAdapteritem.MyViewHolder> {
         }
     }
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapteritem(ArrayList<name.ItemList> list) {
+    public Myadapteritem(ArrayList<ProductList> list) {
         this.list = list;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyAdapteritem.MyViewHolder onCreateViewHolder(ViewGroup parent,
+    public Myadapteritem.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
         View view = LayoutInflater.from(parent.getContext())
@@ -58,10 +57,9 @@ class MyAdapteritem extends RecyclerView.Adapter<MyAdapteritem.MyViewHolder> {
 
         holder.textView_1.setText(list.get(position).getName());
         holder.textView_2.setText(Integer.toString(list.get(position).getBarcode()));
-        holder.textView_3.setText(Integer.toString(list.get(position).getPurchase()));
-        holder.textView_4.setText(Integer.toString(list.get(position).getSale()));
-
-
+        holder.textView_4.setText(Integer.toString(list.get(position).getPurchase()));
+        holder.textView_3.setText(Integer.toString(list.get(position).getSale()));
+        Log.d("TAG", list.get(position).getName());
 
 
     }
@@ -69,6 +67,7 @@ class MyAdapteritem extends RecyclerView.Adapter<MyAdapteritem.MyViewHolder> {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
+
         return list.size();
     }
 }
