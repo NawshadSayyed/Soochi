@@ -34,7 +34,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="100dp"
             android:gravity="bottom"
-            android:text="Total Amount"
+            android:text="Phone Number"
             android:textColor="@color/black"
             android:textSize="15sp" />
     </LinearLayout>

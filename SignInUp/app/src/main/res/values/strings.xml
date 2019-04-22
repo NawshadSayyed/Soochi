@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Soochi Sync Trial</string>
+    <string name="app_name">Soochi</string>
     <string name="title_activity_signup">signup</string>
     <string name="email_id">Email</string>
     <string name="password">Password</string>

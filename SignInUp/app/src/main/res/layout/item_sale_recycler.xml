@@ -10,6 +10,7 @@
         android:id="@+id/card_view_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="#F2E394"
         card_view:cardCornerRadius="8dp">
 
         <RelativeLayout
@@ -98,15 +99,24 @@
                 android:layout_toEndOf="@+id/received"
                 android:text="TextView" />
 
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_below="@+id/received"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="25dp"
+                android:text="Edit" />
 
             <Button
                 android:id="@+id/delete"
-                android:layout_width="155dp"
-                android:layout_height="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
                 android:layout_below="@+id/received"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="105dp"
-                android:layout_marginTop="26dp"
+                android:layout_marginStart="37dp"
+                android:layout_marginTop="24dp"
+                android:layout_toEndOf="@+id/edit"
                 android:text="Delete"
                 android:textSize="15dp" />
 

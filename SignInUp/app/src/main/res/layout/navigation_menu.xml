@@ -11,13 +11,13 @@
         android:title="All parties"/>
     <item android:id="@+id/mycart"
         android:title="Items"/>
-    <item android:id="@+id/taxlist"
+    <item android:id="@+id/estimation"
           android:title="Tax List"/>
     <item android:id="@+id/customer "
         android:title="Bank Accounts"/>
     <item android:id="@+id/Supplier "
         android:title="Cash in Hand"/>
-    <item android:id="@+id/expenses"
+    <item android:id="@+id/product "
         android:title="Expenses"/>
     <item android:id="@+id/sales "
         android:title="Cheques"/>

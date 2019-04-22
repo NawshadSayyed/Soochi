@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.prathamesh.Authentication">
+    package="com.example.prathamesh.signinup">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -14,50 +14,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-            <activity android:name="com.example.prathamesh.Authentication.WelcomeActivity">
+            <activity android:name=".WelcomeActivity">
                 <intent-filter>
                     <action android:name="android.intent.action.MAIN" />
                     <category android:name="android.intent.category.LAUNCHER" />
                 </intent-filter>
             </activity>
 
-        <activity android:name="com.example.prathamesh.Authentication.signin">
+        <activity android:name=".signin">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="MainActivity.MainActivity">
+        <activity android:name=".MainActivity">
         </activity>
-        <activity android:name="Purchase.purchase">
+        <activity android:name=".purchase">
 
         </activity>
         <activity
-            android:name="com.example.prathamesh.Authentication.signup"
+            android:name=".signup"
             android:label="@string/title_activity_signup">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name="Sale.Sale" />
-        <activity android:name="Extra.AllParties" />
-        <activity android:name="Extra.Cardname" />
-        <activity android:name="Extra.Bill" />
-        <activity android:name="ProductMaster.Item" />
-        <activity android:name="ProductMaster.ItemList" />
-        <activity android:name="Sale.AddLineItem" />
-        <activity android:name="Purchase.AddLineItem" />
-        <activity android:name="Returns.ReturnsSale" />
-        <activity android:name="Returns.ReturnsPurchase" />
-        <activity android:name="Tax.Taxlist" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-        <activity android:name="Expenses.Expense" />
+        <activity android:name="name.Sale" />
+        <activity android:name=".AllParties" />
+        <activity android:name="name.Cardname" />
+        <activity android:name=".Bill" />
+        <activity android:name="name.Item" />
+        <activity android:name=".ItemList" />
+        <activity android:name="name.AddLineItem" />
 
     </application>
 
